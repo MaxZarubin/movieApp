@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack -w -d ",
-    "build": "webpack -p"
+    "dev": "webpack-dev-server --open -d",
+    "build": "webpack -p",
+    "watch": "webpack -w"
   },
   "author": "Max Zarubin",
   "license": "ISC",

@@ -5,7 +5,17 @@ import Info from './ModalBodyInfo';
 
 import { Modal, Container, Col, Row } from 'react-bootstrap';
 
-const ModalBody = ({ modal, overview, posterPath, director, voteAverage }) => {
+const ModalBody = ({ modal, overview, posterPath, director, cast, voteAverage }) => {
+
+	const actors = [];
+
+	for(let i = 0, max = cast.length; i < max; i++){
+		actors.push(cast[i].name);
+		if(i > 5){
+			break;
+		}
+	}
+
 	return (
 		<Modal.Body className="modal-body">
 			<Container>   
@@ -18,7 +28,8 @@ const ModalBody = ({ modal, overview, posterPath, director, voteAverage }) => {
 						<Info 
 							modal={modal} 
 							overview={overview} 
-							director={null} 
+							director={director}
+							actors={cast.length > 0 ? actors.join(', ') : 'no data'}
 							voteAverage={voteAverage} 
 						/>
 					</Col>

@@ -19,6 +19,7 @@ const table = {
 const modal = {
 	overview: 'Overview',
 	director: 'Director',
+	cast: 'Cast',
 	rating: 'Rating',
 };
 

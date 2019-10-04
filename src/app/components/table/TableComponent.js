@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TableItem from './TableItem';
+import Pagination from '../pagination/PaginationComponent';
 
 import { Table } from 'react-bootstrap';
 
@@ -18,20 +19,23 @@ const TableComponent = ({ table, response, onTableClick }) => {
 	});
 
 	return (
-		<Table striped bordered>
-			  <thead className="thead-dark">
-			    <tr>
-			      <th scope="col">{table.number}</th>
-			      <th scope="col">{table.name}</th>
-			      <th scope="col">{table.date}</th>
-			    </tr>
-			  </thead>
-			  <tbody>
+		<>
+			<Table striped bordered>
+				  <thead className="thead-dark">
+				    <tr>
+				      <th scope="col">{table.number}</th>
+				      <th scope="col">{table.name}</th>
+				      <th scope="col">{table.date}</th>
+				    </tr>
+				  </thead>
+				  <tbody>
 
-			  	{ items }
+				  	{ items }
 
-			  </tbody>
-		</Table>
+				  </tbody>
+			</Table>
+			<Pagination />
+		</>
 	);
 }
 
