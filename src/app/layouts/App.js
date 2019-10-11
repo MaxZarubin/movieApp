@@ -1,68 +1,50 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 
-import Form from '../components/form/FormComponent';
-import Table from '../components/table/TableComponent';
-import Modal from '../components/modal/ModalComponent';
-import { url, apiKey } from '../config/config';
+import Home from '../pages/Home';
+import MovieInfo from '../pages/MovieInfo';
+import PageNotFound from '../pages/PageNotFound';
+
+import { URL, API_KEY } from '../config/config';
 
 import { Jumbotron, Container } from 'react-bootstrap';
 
 
 class App extends Component {
-	constructor(props){
-		super(props);
-
-		this.state = {
-			inputValue: '',
-			releaseDate: '',
-			movieId: null,
-			showModal: false,
-			searchResponse: [],
-
-		}
-
-		this.handleChangeInput = this.handleChangeInput.bind(this);
-		this.handleChangeSelect = this.handleChangeSelect.bind(this);
-		this.handleTableClick = this.handleTableClick.bind(this);
-		this.handleCloseModal = this.handleCloseModal.bind(this);		
+	state = {
+		inputValue: '',
+		releaseDate: '',
+		movieId: null,
+		searchResponse: [],
 	}
 
-
-
-	handleChangeInput(e){
+	handleChangeInput = (event) => {
 		this.setState({
-			inputValue: e.target.value
+			inputValue: event.target.value
 		}, this.handleSearch);
 	}
 
-	handleChangeSelect(e){
+	handleChangeSelect = (event) =>{
 		this.setState({
-			releaseDate: e.target.value
+			releaseDate: event.target.value
 		}, this.handleSearch);		
 	}
 
-	handleTableClick(e){
+	handleTableClick = (event) => {
 		this.setState({
-			movieId: e.target.parentNode.id,
-			showModal: true
+			movieId: event.target.parentNode.id,
 		});
 	}
 
-	handleCloseModal(){
-		this.setState({
-			showModal: false
-		});
-	}
-
-	handleSearch(){
+	handleSearch = () => {
 		const { inputValue, releaseDate } = this.state;
 
 		if(!inputValue){
 			return null
 		}
 
-		const queryString = `${url}/search/movie?api_key=${apiKey}&query=${inputValue}` 
+		const queryString = `${URL}/search/movie?api_key=${API_KEY}&query=${inputValue}` 
 			+(releaseDate ? `&primary_release_year=${releaseDate}` : '');
 
 		axios.get(queryString).then(response => {
@@ -73,34 +55,36 @@ class App extends Component {
 	}
 
 	render(){
-		const { searchResponse, inputValue, showModal, movieId } = this.state;
-		const { form, table, modal } = this.props;
+		const { searchResponse, inputValue, movieId } = this.state;
+		const { form, table, movieInfo } = this.props;
 		const showTable = (inputValue && searchResponse.length > 0) ? true : false;
 
 		return (
 			<Jumbotron fluid>
 		      <Container>
-		        <Form 
-		        	form={form}
-		        	onChangeInput={this.handleChangeInput} 
-		        	onChangeSelect={this.handleChangeSelect}
-		        /> 
-
-				{showTable && <Table 
+					<Switch>
+						<Route exact path ="/" render={() => 
+							<Home 
+								form={form}
+								onChangeInput={this.handleChangeInput} 
+								onChangeSelect={this.handleChangeSelect}
+								inputValue={inputValue}
 								table={table}
 								response={searchResponse} 
-								onTableClick={this.handleTableClick} 
+								onTableClick={this.handleTableClick}
+								showTable={showTable}
 								/>
-				}
-
-				{showModal && <Modal 
-								modal={modal}
-								show={showModal} 
-								onCloseModal={this.handleCloseModal}
+							} 
+						/>
+						<Route exact path ="/movieinfo" render={() => 
+							<MovieInfo
+								movieInfo={movieInfo}
 								id={movieId}
-								/>
-				}
-
+							/>
+							} 
+						/>						
+						<Route component={PageNotFound} />
+					</Switch>	 
 		      </Container>
 		    </Jumbotron>		
 		);		

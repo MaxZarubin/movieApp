@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { BrowserRouter } from 'react-router-dom';
 import App from './app/layouts/App';
+
+import './css/style';
 
 const form = {
 	inputLabel: 'Movie search',
@@ -16,7 +19,7 @@ const table = {
 	date: 'Release Date',
 };
 
-const modal = {
+const movieInfo = {
 	overview: 'Overview',
 	director: 'Director',
 	cast: 'Cast',
@@ -24,10 +27,7 @@ const modal = {
 };
 
 ReactDOM.render(
-	<App 
-		form={form}
-		table={table}
-		modal={modal}
-	/>
-	,document.getElementById('root')
-);
+	<BrowserRouter>
+		<App form={form} table={table} movieInfo={movieInfo} />
+	</BrowserRouter>
+,document.getElementById('root'));

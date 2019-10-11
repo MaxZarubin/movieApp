@@ -29,9 +29,7 @@ const TableComponent = ({ table, response, onTableClick }) => {
 				    </tr>
 				  </thead>
 				  <tbody>
-
 				  	{ items }
-
 				  </tbody>
 			</Table>
 			<Pagination />

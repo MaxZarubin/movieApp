@@ -5,14 +5,15 @@ import Options from './SelectOption';
 import { Form } from 'react-bootstrap';
 
 
-const FormSelect = ({ onChangeSelect, options, label }) => {
+const FormSelect = ({ onChangeSelect, label, options }) => {
+	
 	const option = options.map(item => {
 		return <Options title={item} key={item} />
 	});
 
 	return (
 		<Form.Group onChange={onChangeSelect}>
-			<Form.Label>Year</Form.Label>
+			<Form.Label>{label}</Form.Label>
 			<Form.Control as="select">
 				{ option }
 			</Form.Control>
