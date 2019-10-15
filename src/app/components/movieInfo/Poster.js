@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { POSTER_URL } from '../../config/config';
 import { Figure } from 'react-bootstrap';
 
 const Poster = ({ path }) => {
@@ -8,7 +9,7 @@ const Poster = ({ path }) => {
             <Figure.Image
                 height={500}
                 alt="poster"
-                src={`https://image.tmdb.org/t/p/w500/${path}`}
+                src={`${POSTER_URL}${path}`}
             />
         </Figure>
     );

@@ -6,8 +6,7 @@ import FormSelect from './FormSelect';
 import { Form, Col } from 'react-bootstrap';
 
 
-const FormComponent = ({ onChangeInput, onChangeSelect, form, inputValue }) => {
-
+const FormComponent = ({ onChangeInput, onChangeSelect, onClickDelete, form, inputValue }) => {
 	return (
 		<Form>
 	        <Form.Row>
@@ -17,6 +16,7 @@ const FormComponent = ({ onChangeInput, onChangeSelect, form, inputValue }) => {
 						inputValue={inputValue}
 						label={form.inputLabel}
 						placeholder={form.inputPlaceholder}
+						onClickDelete={onClickDelete}
 	        		/>
 				</Col>
 				<Col xs lg="2"> 

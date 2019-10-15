@@ -5,7 +5,7 @@ import Poster from '../components/movieInfo/Poster';
 import Info from '../components/movieinfo/Info';
 
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 import { URL, API_KEY } from '../config/config';
 
@@ -18,10 +18,9 @@ class MovieInfo extends Component {
 
     componentDidMount(){
 		const { id } = this.props;
-		const queryString = `${URL}/movie/18411?api_key=${API_KEY}&append_to_response=credits`;	
-        
+		const queryString = `${URL}/movie/${id}?api_key=${API_KEY}&append_to_response=credits`;	
+ 
 		axios.get(queryString).then(response => {
-            console.log(response.data.credits.crew[0].name);
 			this.setState({
 				getMovieResponse: response.data
 			}, this.setState({
@@ -34,28 +33,29 @@ class MovieInfo extends Component {
 
     render(){
 		const { movieInfo ,id } = this.props;
-		const { original_title, overview, poster_path, vote_average } = this.state.getMovieResponse;
+		const { title, overview, poster_path, vote_average } = this.state.getMovieResponse;
 		const { director, cast } = this.state;
-
+        console.log(this.state.getMovieResponse);
         return (
             <Container>
+                <h1>{title}</h1>
+                <hr/>                
                 <Row>
-                    <Col>
-                        <h1>{original_title}</h1>
-                        <Poster path={poster_path}/>
+                    <Col md="4">
+                    { poster_path ? <Poster path={poster_path} /> : <Spinner animation="border" role="status"/> }
                     </Col>
-                    <Col>
+                    <Col md="7">
                         <Info
                             movieInfo={movieInfo}
                             overview={overview}
                             rating={vote_average}
                             director={director}
                             cast={cast}
-
+                            id={id}
                          />
+                         <Link to="/" type="button" className="btn btn-primary">Back</Link>
                     </Col>
                 </Row>
-            <Link to="/">Home</Link>
             </Container>
         );
     }

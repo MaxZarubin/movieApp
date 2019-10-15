@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Form from '../components/form/FormComponent';
 import Table from '../components/table/TableComponent';
@@ -9,7 +8,9 @@ const Home = (props) => {
             form, 
             onChangeInput, 
             onChangeSelect,
+            onClickDelete,
             inputValue,
+            releaseDate,
             table, 
             response, 
             onTableClick, 
@@ -18,11 +19,11 @@ const Home = (props) => {
 
     return (
         <>
-        <Link to="/movieinfo">To Movie Info</Link>
         <Form 
             form={form}
 			onChangeInput={onChangeInput} 
             onChangeSelect={onChangeSelect}
+            onClickDelete={onClickDelete}
             inputValue={inputValue}
 		/>
 		{showTable && <Table 

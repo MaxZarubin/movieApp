@@ -25,6 +25,12 @@ class App extends Component {
 		}, this.handleSearch);
 	}
 
+	handleClickDelete = ()=> {
+		this.setState({
+			inputValue: ''
+		});
+	}
+
 	handleChangeSelect = (event) =>{
 		this.setState({
 			releaseDate: event.target.value
@@ -33,7 +39,7 @@ class App extends Component {
 
 	handleTableClick = (event) => {
 		this.setState({
-			movieId: event.target.parentNode.id,
+			movieId: event.target.closest('tr').id,
 		});
 	}
 
@@ -42,10 +48,10 @@ class App extends Component {
 
 		if(!inputValue){
 			return null
-		}
+		};
 
 		const queryString = `${URL}/search/movie?api_key=${API_KEY}&query=${inputValue}` 
-			+(releaseDate ? `&primary_release_year=${releaseDate}` : '');
+			+ (releaseDate ? `&primary_release_year=${releaseDate}` : '');
 
 		axios.get(queryString).then(response => {
 			this.setState({
@@ -55,12 +61,12 @@ class App extends Component {
 	}
 
 	render(){
-		const { searchResponse, inputValue, movieId } = this.state;
+		const { searchResponse, inputValue, releaseDate, movieId } = this.state;
 		const { form, table, movieInfo } = this.props;
 		const showTable = (inputValue && searchResponse.length > 0) ? true : false;
 
 		return (
-			<Jumbotron fluid>
+			<Jumbotron fluid id="jumbotron">
 		      <Container>
 					<Switch>
 						<Route exact path ="/" render={() => 
@@ -68,15 +74,16 @@ class App extends Component {
 								form={form}
 								onChangeInput={this.handleChangeInput} 
 								onChangeSelect={this.handleChangeSelect}
+								onTableClick={this.handleTableClick}
+								onClickDelete={this.handleClickDelete}
 								inputValue={inputValue}
 								table={table}
 								response={searchResponse} 
-								onTableClick={this.handleTableClick}
 								showTable={showTable}
 								/>
 							} 
 						/>
-						<Route exact path ="/movieinfo" render={() => 
+						<Route path ='/movieinfo' render={() => 
 							<MovieInfo
 								movieInfo={movieInfo}
 								id={movieId}
