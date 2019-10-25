@@ -10,7 +10,6 @@ const Home = (props) => {
             onChangeSelect,
             onClickDelete,
             inputValue,
-            releaseDate,
             table, 
             response, 
             onTableClick, 

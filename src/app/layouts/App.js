@@ -61,7 +61,7 @@ class App extends Component {
 	}
 
 	render(){
-		const { searchResponse, inputValue, releaseDate, movieId } = this.state;
+		const { searchResponse, inputValue, movieId } = this.state;
 		const { form, table, movieInfo } = this.props;
 		const showTable = (inputValue && searchResponse.length > 0) ? true : false;
 
@@ -83,7 +83,7 @@ class App extends Component {
 								/>
 							} 
 						/>
-						<Route path ='/movieinfo' render={() => 
+						<Route path ='/movieinfo/:id' render={() => 
 							<MovieInfo
 								movieInfo={movieInfo}
 								id={movieId}

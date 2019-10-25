@@ -34,8 +34,8 @@ class MovieInfo extends Component {
     render(){
 		const { movieInfo ,id } = this.props;
 		const { title, overview, poster_path, vote_average } = this.state.getMovieResponse;
-		const { director, cast } = this.state;
-        console.log(this.state.getMovieResponse);
+        const { director, cast } = this.state;
+        
         return (
             <Container>
                 <h1>{title}</h1>
