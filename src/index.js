@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import App from './app/layouts/App';
+import store from './store';
 
 import './css/style';
 
@@ -27,7 +29,9 @@ const movieInfo = {
 };
 
 ReactDOM.render(
-	<BrowserRouter>
-		<App form={form} table={table} movieInfo={movieInfo} />
-	</BrowserRouter>
+	<Provider store={store}>	
+		<BrowserRouter>
+			<App form={form} table={table} movieInfo={movieInfo} />
+		</BrowserRouter>
+	</Provider>	
 ,document.getElementById('root'));
