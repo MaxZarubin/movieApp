@@ -2,6 +2,7 @@ import { CHANGE_INPUT, CHANGE_SELECT, TABLE_CLICK, SEARCH } from '../constants/h
 import { URL, API_KEY } from '../config/config';
 import axios from 'axios';
 
+
 const changeInput = event => dispatch => {
     dispatch({
         type: CHANGE_INPUT,
