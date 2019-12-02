@@ -3,19 +3,20 @@ import React from 'react';
 import FormInput from './FormInput';
 import FormSelect from './FormSelect';
 
-import { Form, Col, Dropdown } from 'react-bootstrap';
+import { Form, Col } from 'react-bootstrap';
 
 
-const FormComponent = ({ onChangeInput, onChangeSelect, form }) => {
-
+const FormComponent = ({ onChangeInput, onChangeSelect, onClickDelete, form, inputValue }) => {
 	return (
 		<Form>
 	        <Form.Row>
 	        	<Col md={3}>
 	        		<FormInput 
-	        			onChangeInput={onChangeInput}
-	        			label={form.inputLabel}
-	        			placeholder={form.inputPlaceholder}
+						onChangeInput={onChangeInput}
+						inputValue={inputValue}
+						label={form.inputLabel}
+						placeholder={form.inputPlaceholder}
+						onClickDelete={onClickDelete}
 	        		/>
 				</Col>
 				<Col xs lg="2"> 
