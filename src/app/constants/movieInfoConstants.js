@@ -1,0 +1,5 @@
+const GET_MOVIE = 'GET_MOVIE';
+const GET_DIRECTOR = 'GET_DIRECTOR';
+const GET_CAST = 'GET_CAST';
+
+export { GET_MOVIE, GET_DIRECTOR, GET_CAST };

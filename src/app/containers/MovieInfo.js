@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import Poster from '../components/movieInfo/Poster';
 import Info from '../components/movieinfo/Info';
@@ -7,37 +7,21 @@ import Info from '../components/movieinfo/Info';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
-import { URL, API_KEY } from '../config/config';
+import { getMovie } from '../actions/movieInfoActions';
 
 class MovieInfo extends Component {
-    state = {
-        getMovieResponse: [],
-        director: '',
-        cast: []
-    }
 
     componentDidMount(){
-		const { id } = this.props;
-		const queryString = `${URL}/movie/${id}?api_key=${API_KEY}&append_to_response=credits`;	
- 
-		axios.get(queryString).then(response => {
-			this.setState({
-				getMovieResponse: response.data
-			}, this.setState({
-				director: response.data.credits.crew[0].name
-			}), this.setState({
-				cast: response.data.credits.cast
-			}));
-		});
+		const { id, getMovie} = this.props;
+        getMovie(id);
 	}
 
     render(){
-		const { movieInfo ,id } = this.props;
-		const { title, overview, poster_path, vote_average } = this.state.getMovieResponse;
-        const { director, cast } = this.state;
+		const { movieInfo, id, director, cast } = this.props;
+		const { title, overview, poster_path, vote_average } = this.props.getMovieResponse;
         
         return (
-            <Container>
+            <Container md="10">
                 <h1>{title}</h1>
                 <hr/>                
                 <Row>
@@ -59,7 +43,13 @@ class MovieInfo extends Component {
             </Container>
         );
     }
-
 }
 
-export default MovieInfo;
+const mapStateToProps = ({ home, info }) => ({
+    getMovieResponse: info.getMovieResponse,
+    director: info.director,
+    cast: info.cast,
+    id: home.movieId
+});
+
+export default connect(mapStateToProps, {getMovie})(MovieInfo);
